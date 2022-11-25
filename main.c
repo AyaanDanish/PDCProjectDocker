@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <wait.h>
 
+//Use "compile.sh" to run the project locally without Docker
+//Use "run.sh" to run the project on a Docker container (Docker must be running for this)
+
 int main() {
 
   int choice;
