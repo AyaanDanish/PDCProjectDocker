@@ -125,6 +125,8 @@ int main() {
   } else
     printf("No solution exists");
 
+  printf("Press ENTER to return to main menu...");
+  getchar();
+  execl("./main", "./main", NULL);
   return 0;
-  // This is code is contributed by Pradeep Mondal P
 }

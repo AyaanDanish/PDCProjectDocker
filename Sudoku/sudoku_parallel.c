@@ -108,4 +108,6 @@ int main(int argc, char **argv) {
 #pragma omp parallel default(none) shared(sudoku) num_threads(4)
 #pragma omp single nowait
   { solve(sudoku, 1); }
+
+ 
 }
