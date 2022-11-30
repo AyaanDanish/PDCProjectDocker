@@ -84,7 +84,7 @@ int main() {
   printf("Time taken by serial code: %f s\n", end - start);
   writeTime(end - start);
 
-  system("gnuplot -p plot.gp");
+  system("gnuplot -p plot.gp && rm data.txt");
 
   printf("Press ENTER to return to main menu...");
   getchar();
