@@ -47,9 +47,8 @@ int main() {
       execl("./Vowels/vowel_consonant_serial",
             "./Vowels/vowel_consonant_serial", NULL);
     }
-    break;
 
   default:
-    printf("Invalid Entry!\n");
+    break;
   }
 }

@@ -1,2 +1,0 @@
-# Parallel Serial
-0.007812 0.007165 
