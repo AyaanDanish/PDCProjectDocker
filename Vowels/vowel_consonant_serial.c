@@ -1,8 +1,11 @@
 #include <ctype.h>
+#include <curses.h>
+#include <ncurses.h>
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 long len;
 
@@ -33,6 +36,13 @@ char *read_file(char *filename) {
   fclose(file);
 
   return string;
+}
+
+void writeTime(float time) {
+  FILE *file;
+  file = fopen("./data.txt", "a");
+  fprintf(file, "%f ", time);
+  fclose(file);
 }
 
 int main() {
@@ -96,6 +106,17 @@ int main() {
   printf("\nDigits: %d", digit);
   printf("\nWhite spaces: %d\n", space);
 
+  // Print the time
   printf("Time Taken (SERIAL): %f s\n\n", (end - start));
+
+  // Write the time to a temporary file used for plotting
+  writeTime(end - start);
+
+  // Plot the graph and delete the graph file
+  system("gnuplot -p plot.gp && rm data.txt");
+
+  printf("\nPress ENTER to return to main menu...");
+  getchar();
+  execl("./main", "./main", NULL);
   return 0;
 }

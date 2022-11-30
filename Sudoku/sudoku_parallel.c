@@ -63,6 +63,13 @@ int find_unassigned(int grid[SIZE][SIZE], int *row, int *col) {
   return 0;
 }
 
+void writeTime(float time) {
+  FILE *file;
+  file = fopen("./data.txt", "w");
+  fprintf(file, "# Parallel Serial\n%f ", time);
+  fclose(file);
+}
+
 int solve(int grid[SIZE][SIZE], int level) {
 
   int row = 0;
@@ -81,8 +88,8 @@ int solve(int grid[SIZE][SIZE], int level) {
         if (solve(copy_grid, level + 1)) {
           // print_grid(copy_grid);
           double end = omp_get_wtime();
-          double time_spent = end - start;
-          printf("Time taken in parallel: %fs\n", time_spent);
+          writeTime(end - start);
+          printf("Time taken in parallel: %fs\n", end - start);
           exit(0);
         }
       }
@@ -108,6 +115,4 @@ int main(int argc, char **argv) {
 #pragma omp parallel default(none) shared(sudoku) num_threads(4)
 #pragma omp single nowait
   { solve(sudoku, 1); }
-
- 
 }

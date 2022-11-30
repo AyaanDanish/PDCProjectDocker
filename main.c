@@ -30,22 +30,22 @@ int main() {
 
   case 2:
     if (!fork())
-      execl("./Djikstra/djikstra_serial", "./Djikstra/djikstra_serial", NULL);
-    else {
-      wait(NULL);
       execl("./Djikstra/djikstra_parallel", "./Djikstra/djikstra_parallel",
             NULL);
+    else {
+      wait(NULL);
+      execl("./Djikstra/djikstra_serial", "./Djikstra/djikstra_serial", NULL);
     }
     break;
 
   case 3:
     if (!fork())
-      execl("./Vowels/vowel_consonant_serial",
-            "./Vowels/vowel_consonant_serial", NULL);
-    else {
-      wait(NULL);
       execl("./Vowels/vowel_consonant_parallel",
             "./Vowels/vowel_consonant_parallel", NULL);
+    else {
+      wait(NULL);
+      execl("./Vowels/vowel_consonant_serial",
+            "./Vowels/vowel_consonant_serial", NULL);
     }
     break;
 

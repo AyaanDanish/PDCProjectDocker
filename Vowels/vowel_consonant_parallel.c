@@ -37,8 +37,14 @@ char *read_file(char *filename) {
   return string;
 }
 
+void writeTime(float time) {
+  FILE *file;
+  file = fopen("./data.txt", "w");
+  fprintf(file, "# Parallel Serial\n%f ", time);
+  fclose(file);
+}
+
 int main() {
-  // char *line;
   double start, end;
   int vowels, consonant, digit, space;
 
@@ -98,11 +104,7 @@ int main() {
   printf("\nDigits: %d", digit);
   printf("\nWhite spaces: %d\n", space);
 
-  printf("Time Taken (PARALLEL): %f s\n\n", (end - start));
-
-  printf("Press ENTER to return to main menu...");
-  getchar();
-  execl("./main", "./main", NULL);
-
+  printf("Time Taken (PARALLEL): %f s\n", (end - start));
+  writeTime(end - start);
   return 0;
 }

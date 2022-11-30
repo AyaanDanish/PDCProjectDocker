@@ -105,6 +105,13 @@ int solveSudoku(int grid[N][N], int row, int col) {
   return 0;
 }
 
+void writeTime(float time) {
+  FILE *file;
+  file = fopen("./data.txt", "a");
+  fprintf(file, "%f ", time);
+  fclose(file);
+}
+
 int main() {
   double start, end;
   // 0 means unassigned cells
@@ -120,10 +127,12 @@ int main() {
   if (solveSudoku(grid, 0, 0) == 1) {
     // print(grid);
     end = omp_get_wtime();
-    float time_taken = end - start;
-    printf("Time Taken in serial: %fs\n\n", time_taken);
+    printf("Time Taken in serial: %fs\n\n", end - start);
+    writeTime(end - start);
   } else
     printf("No solution exists");
+
+  system("gnuplot -p plot.gp && rm data.txt");
 
   printf("Press ENTER to return to main menu...");
   getchar();

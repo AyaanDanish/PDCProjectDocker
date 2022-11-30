@@ -2,9 +2,12 @@
 #include <omp.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
+#include <unistd.h>
 
-#define V 8
+#define V 1100
 
 int minDistance(int dist[], bool sptSet[]) {
   // Initialize min value
@@ -48,16 +51,43 @@ void dijkstra(int graph[V][V], int src) {
   //   printSolution(dist);
 }
 
+void writeTime(float time) {
+  FILE *file;
+  file = fopen("./data.txt", "a");
+  fprintf(file, "%f ", time);
+  fclose(file);
+}
+
 int main() {
+  srand(time(NULL));
   double start, end;
-  int graph[V][V] = {{0, 0, 30, 0, 10, 0, 90, 50}, {0, 0, 10, 20, 0, 0, 0, 0},
-                     {30, 10, 0, 0, 0, 10, 0, 0},  {0, 20, 0, 0, 0, 10, 0, 10},
-                     {10, 0, 0, 0, 0, 0, 20, 20},  {0, 0, 10, 10, 0, 0, 0, 0},
-                     {90, 0, 0, 0, 20, 0, 0, 0},   {50, 0, 0, 10, 20, 0, 0, 0}};
+  int graph[V][V];
+
+  for (int i = 0; i < V; i++) {
+    for (int j = 0; j < V; j++) {
+      if (i != j)
+        graph[i][j] = rand() % 10;
+      else
+        graph[i][j] = 0;
+    }
+  }
+
+  for (int i = 0; i < V; i++) {
+    for (int j = 0; j < V; j++) {
+      graph[j][i] = graph[i][j];
+    }
+  }
 
   start = omp_get_wtime();
   dijkstra(graph, 0);
   end = omp_get_wtime();
   printf("Time taken by serial code: %f s\n", end - start);
+  writeTime(end - start);
+
+  system("gnuplot -p plot.gp");
+
+  printf("Press ENTER to return to main menu...");
+  getchar();
+  execl("./main", "./main", NULL);
   return 0;
 }
