@@ -80,7 +80,7 @@ int *dijkstra_distance(int ohd[NV][NV]) {
   /*
     Begin the parallel region.
   */
-#pragma omp parallel num_threads(5) private(my_first, my_id, my_last, my_md,   \
+#pragma omp parallel num_threads(3) private(my_first, my_id, my_last, my_md,   \
                                             my_mv, my_step)                    \
     shared(connected, md, mind, mv, nth, ohd)
   {
